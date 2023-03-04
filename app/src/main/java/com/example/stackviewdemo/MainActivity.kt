@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.customstackview.OnChangeListener
 import com.example.stackviewdemo.databinding.ActivityMainBinding
@@ -17,15 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private var nameList = intArrayOf(
-        R.drawable.guava,
-        R.drawable.jackfruit,
-        R.drawable.mix_fruit,
-        R.drawable.pizza,
-        R.drawable.pomegranate,
-        R.drawable.strawberry,
-        R.drawable.zespri_kiwi
-    )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,47 +84,27 @@ class MainActivity : AppCompatActivity() {
         ): View {
             val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.item_layout, parent, false)
             view.also {
-                it.findViewById<TextView>(R.id.text_view).text = data[position]
+//                it.findViewById<TextView>(R.id.text_view).text = data[position]
+                it.findViewById<ImageView>(R.id.image_view).setImageResource(nameList[position%7])
             }
 
             return view
         }
+
+        var nameList = intArrayOf(
+            R.drawable.blue1,
+            R.drawable.brown1,
+            R.drawable.white1,
+            R.drawable.gray1,
+            R.drawable.darkblue1,
+            R.drawable.red1,
+            R.drawable.green1
+        )
 
     }
 
 }
 
 
-/*
-private fun setupStackView() {
-        val adapter = MainAdapter(this, nameList)
-        activityMainBinding.stackView.adapter = adapter
-        adapter.notifyDataSetChanged()
-    }
-*/
 
 
-    // the method numberWord() is used to
-    // add the text below corresponding images.
-    private fun numberWord(): List<String>? {
-        val word: MutableList<String> = ArrayList()
-        word.add("One")
-        word.add("Two")
-        word.add("Three")
-        word.add("Four")
-        word.add("Five")
-        return word
-    }
-
-    // the method numberWord() is used to call
-    // the images that are added to the stack.
-  /*  private fun numberImage(): List<Int>? {
-        val image: MutableList<Int> = ArrayList()
-        image.add(R.drawable.ic_delete)
-        image.add(R.drawable.ic_delete)
-        image.add(R.drawable.ic_delete)
-        image.add(R.drawable.ic_delete)
-        image.add(R.drawable.ic_delete)
-        return image
-    }
-*/

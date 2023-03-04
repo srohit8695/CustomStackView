@@ -290,7 +290,7 @@ class CustomStack @JvmOverloads constructor(
     }
 
     private fun layoutItem(childView: View, index: Int, order: Int, allowAnimation: Boolean = false): AnimatorSet? {
-        val newPositionX = (width - childView.measuredWidth) / 2
+        val newPositionX = order*2//(width - childView.measuredWidth) / 2
         childView.layout(
             newPositionX,
             paddingTop,
@@ -303,7 +303,7 @@ class CustomStack @JvmOverloads constructor(
         }
 
         val distanceToViewAbove = order * viewSpacing
-        val newPositionY = distanceToViewAbove + paddingTop
+        val newPositionY = order*2//distanceToViewAbove + paddingTop
         return if (allowAnimation) {
             AnimatorSet().apply {
                 playTogether(
@@ -318,13 +318,14 @@ class CustomStack @JvmOverloads constructor(
     }
 
     private fun scaleItem(childView: View, order: Int, allowAnimation: Boolean = false): AnimatorSet? {
-        val scaleFactor = 1F - order * .05F
+        val scaleFactor = 1F - (stackMaxSize-order) * .05F
+//        val scaleFactor = 1F - order * .05F
 
         return if (allowAnimation) {
             AnimatorSet().apply {
                 playTogether(
-                    ObjectAnimator.ofFloat(childView, "scaleX", scaleFactor),
-                    ObjectAnimator.ofFloat(childView, "scaleY", scaleFactor)
+                    ObjectAnimator.ofFloat(childView, "scaleX", scaleFactor+(order * .03F)),//Increase X axis and reduce Y axis for child views
+                    ObjectAnimator.ofFloat(childView, "scaleY", scaleFactor-(order * .20F))//to show background child views wider
                 )
             }
         } else {
