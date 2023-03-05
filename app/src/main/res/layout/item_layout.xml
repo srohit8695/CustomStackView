@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--ImageView is added where I have used the image
-        that we are going to keep in front-->
+
     <ImageView
         android:src="@drawable/guava"
         android:id="@+id/image_view"
@@ -15,13 +14,6 @@
         android:layout_height="wrap_content"
         />
 
-    <!--Add TextView to add the text below every image
-        added to the stack.-->
-    <TextView
-        android:id="@+id/text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
