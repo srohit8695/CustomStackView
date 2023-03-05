@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 rootProject.name = "StackViewDemo"
 include ':app'
 include ':CustomStackView'
+include ':NetworkLayer'
+

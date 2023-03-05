@@ -1,6 +1,6 @@
 package com.example.networklayer.resopnse
 
 data class PricingInfo(
-    val duration : String,
+    val duration : Any,
     val screensInfo : List<ScreensInfo>
 )

@@ -1,6 +1,7 @@
-package com.example.networklayer.resopnse
+package com.example.networklayer.resopnse.genericResopnse
 
 import androidx.annotation.Keep
+import com.example.networklayer.resopnse.responseStatus.Status
 
 @Keep
 class BaseResponse<T> private constructor(val status: Status, val data: T?, var message: String?) {

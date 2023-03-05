@@ -1,4 +1,4 @@
-package com.example.networklayer.resopnse
+package com.example.networklayer.resopnse.responseStatus
 
 import androidx.annotation.Keep
 

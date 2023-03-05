@@ -1,4 +1,4 @@
-package com.example.stackviewdemo.UI
+package com.example.stackviewdemo
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -1,4 +1,4 @@
-package com.example.stackviewdemo
+package com.example.stackviewdemo.UI
 
 import android.content.Context
 import android.os.Bundle
@@ -8,24 +8,40 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.customstackview.OnChangeListener
+import com.example.stackviewdemo.R
+import com.example.stackviewdemo.ViewModel.PackageInfoViewModel
 import com.example.stackviewdemo.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
-
-
+    private lateinit var packageInfoViewModel : PackageInfoViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val adapter = MainAdapter(numberWord()!!, numberImage()!!, R.layout.simple_list_item_activated_2, this@MainActivity)
-//        setupStackView()
+        packageInfoViewModel = ViewModelProvider(this)[PackageInfoViewModel::class.java]
+        val tempData = packageInfoViewModel.getAllPackageInfo()
+
+        try {
+            tempData.observe(this, Observer{
+
+                    val data = it.data?.statusCode
+                    Toast.makeText(this,data.toString(),Toast.LENGTH_SHORT).show()
+
+            })
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         val data = listOf(
             "${getString(R.string.app_name)} 1",
