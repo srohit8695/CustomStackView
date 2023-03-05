@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.networklayer.resopnse.DataResponse
 import com.example.stackviewdemo.Model.StackViewPackageInfo
 import com.example.stackviewdemo.R
@@ -37,6 +38,8 @@ class StckedViewPackageInfoAdapter(
         view.also {
             it.findViewById<AppCompatTextView>(R.id.packageInfoName).text = data[position].packageName.toString()
             it.findViewById<AppCompatTextView>(R.id.numberOfProviders).text = data[position].providersInfo.size.toString()+" Providers"
+            val iconRecyclerView = it.findViewById<RecyclerView>(R.id.channelIcons)
+            iconRecyclerView.adapter = ChannelInfoAdapter(data[position].providersInfo,context)
 
         }
 

@@ -4,6 +4,7 @@ package com.example.stackviewdemo.UI
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,9 @@ import com.example.stackviewdemo.Util.Utility
 import com.example.stackviewdemo.ViewModel.PackageInfoViewModel
 import com.example.stackviewdemo.databinding.ActivitySplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
@@ -41,14 +45,16 @@ class SplashActivity : AppCompatActivity() {
                     Status.SUCCESS -> {
 
                         it.data.let {
-                            Toast.makeText(this,it!!.message.toString(), Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(this,it!!.message.toString(), Toast.LENGTH_SHORT).show()
 
-                            /*var temp: ArrayList<String> = ArrayList()
-                            for(i in 0..5){
-                                val data = StackViewPackageInfo(it.data[i].packageName.toString(),"2")
-                                temp.add(it.data[i].packageName.toString())
-                            }*/
-                            Utility.packageInfoList = it.data
+                            if (it != null) {
+                                Utility.packageInfoList = it.data
+                            }
+                            Executors.newSingleThreadScheduledExecutor().schedule({
+                                val move = Intent(this,MainActivity::class.java)
+                                startActivity(move)
+                            }, 2, TimeUnit.SECONDS)
+
                         }
 
                     }
