@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        loadData()
-//        runDemo()
+//        loadData()
+        runDemo()
 
     }
 
@@ -45,9 +45,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateScreen(remainingCardsCount: Int, totalCardsCount: Int){
-        binding.nosOfScreen.text = Utility.packageInfoList[totalCardsCount-remainingCardsCount].pricingInfo[0].screensInfo[0].numberOfScreens.toString()
-        binding.billedAnually.text = "Rs ${Utility.packageInfoList[totalCardsCount-remainingCardsCount].pricingInfo[0].screensInfo[0].price.toString()}"
-        binding.duration.text = Utility.packageInfoList[totalCardsCount-remainingCardsCount].pricingInfo[0].duration.toString()
+
+        val indexOf = totalCardsCount - remainingCardsCount
+        if(indexOf<totalCardsCount &&
+            Utility.packageInfoList[indexOf].pricingInfo.isNotEmpty()
+        ){
+            binding.nosOfScreen.text = Utility.packageInfoList[indexOf].pricingInfo[0].screensInfo[0].numberOfScreens.toString()
+            binding.billedAnually.text = "Rs ${Utility.packageInfoList[indexOf].pricingInfo[0].screensInfo[0].price.toString()}"
+            binding.duration.text = Utility.packageInfoList[indexOf].pricingInfo[0].duration.toString()
+        }
+
     }
 
     private fun runDemo(){
@@ -60,19 +67,7 @@ class MainActivity : AppCompatActivity() {
                 "${getString(R.string.app_name)} 5",
                 "${getString(R.string.app_name)} 6",
                 "${getString(R.string.app_name)} 7",
-                "${getString(R.string.app_name)} 8",
-                "${getString(R.string.app_name)} 9",
-                "${getString(R.string.app_name)} 10",
-                "${getString(R.string.app_name)} 11",
-                "${getString(R.string.app_name)} 12",
-                "${getString(R.string.app_name)} 13",
-                "${getString(R.string.app_name)} 14",
-                "${getString(R.string.app_name)} 15",
-                "${getString(R.string.app_name)} 16",
-                "${getString(R.string.app_name)} 17",
-                "${getString(R.string.app_name)} 18",
-                "${getString(R.string.app_name)} 19",
-                "${getString(R.string.app_name)} 20"
+                "${getString(R.string.app_name)} 8"
             )
             binding.stackView.adapter = StackedCardsAdapter(this, data)
 

@@ -181,14 +181,16 @@ class CustomStack @JvmOverloads constructor(
                 requestDisallowInterceptTouchEvent(true)
 
                 val childView = getChildAt(topViewIndex)
-                initialX = childView.x
-                initialY = childView.y
+                if (topViewIndex>=0) {
+                    initialX = childView.x
+                    initialY = childView.y
 
-                touchPointerId = event.getPointerId(0)
-                previousTouchX = event.getX(touchPointerId)
-                previousTouchY = event.getY(touchPointerId)
+                    touchPointerId = event.getPointerId(0)
+                    previousTouchX = event.getX(touchPointerId)
+                    previousTouchY = event.getY(touchPointerId)
 
-                setAllParentsClipConfig(enabled = false)
+                    setAllParentsClipConfig(enabled = false)
+                }
 
                 return true
             }
@@ -198,28 +200,30 @@ class CustomStack @JvmOverloads constructor(
                     return false
                 }
 
-                val childView = getChildAt(topViewIndex)
-                val touchX = event.getX(pointerIndex)
-                val touchY = event.getY(pointerIndex)
-                val newX = childView.x + (touchX - previousTouchX)
-                val newY = childView.y + (touchY - previousTouchY)
+                if (topViewIndex>=0) {
+                    val childView = getChildAt(topViewIndex)
+                    val touchX = event.getX(pointerIndex)
+                    val touchY = event.getY(pointerIndex)
+                    val newX = childView.x + (touchX - previousTouchX)
+                    val newY = childView.y + (touchY - previousTouchY)
 
-                previousTouchX = touchX
-                previousTouchY = touchY
-                childView.x = newX
-                childView.y = newY
+                    previousTouchX = touchX
+                    previousTouchY = touchY
+                    childView.x = newX
+                    childView.y = newY
 
-                val dragDistanceX = newX - initialX
-                val swipeProgress = max(
-                    dragDistanceX / width, -1F
-                ).coerceAtMost(1F)
+                    val dragDistanceX = newX - initialX
+                    val swipeProgress = max(
+                        dragDistanceX / width, -1F
+                    ).coerceAtMost(1F)
 
-                if (swipeRotation > 0) {
-                    childView.rotation = swipeRotation * swipeProgress
-                }
+                    if (swipeRotation > 0) {
+                        childView.rotation = swipeRotation * swipeProgress
+                    }
 
-                if (swipeOpacity < 1f) {
-                    childView.alpha = 1F - abs(swipeProgress * 2).coerceAtMost(1F)
+                    if (swipeOpacity < 1f) {
+                        childView.alpha = 1F - abs(swipeProgress * 2).coerceAtMost(1F)
+                    }
                 }
 
                 return true
@@ -342,17 +346,19 @@ class CustomStack @JvmOverloads constructor(
             return
         }
 
-        val childView = getChildAt(topViewIndex)
-        val threshold = width / 3F
-        when {
-            childView.x + childView.width < 2 * threshold -> {
-                swipeItemToLeft()
-            }
-            childView.x > threshold -> {
-                swipeItemToRight()
-            }
-            else -> {
-                resetItemPosition()
+        if (topViewIndex>=0) {
+            val childView = getChildAt(topViewIndex)
+            val threshold = width / 3F
+            when {
+                childView.x + childView.width < 2 * threshold -> {
+                    swipeItemToLeft()
+                }
+                childView.x > threshold -> {
+                    swipeItemToRight()
+                }
+                else -> {
+                    resetItemPosition()
+                }
             }
         }
     }

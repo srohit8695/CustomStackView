@@ -30,10 +30,10 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.splashImg.setOnClickListener {
+        /*binding.splashImg.setOnClickListener {
             val move = Intent(this,MainActivity::class.java)
             startActivity(move)
-        }
+        }*/
 
         packageInfoViewModel = ViewModelProvider(this)[PackageInfoViewModel::class.java]
         val tempData = packageInfoViewModel.getAllPackageInfo()
